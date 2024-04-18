@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Categories</title>
+    <style>
+        /* CSS styles */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f7ede2; /* Màu nền ấm */
+        }
+        
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+        
+        h2 {
+            color: #6d584f; /* Màu chữ tiêu đề */
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        h3 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        
+        .btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            color: #fff;
+        }
+        
+        .btn-success {
+            background-color: #9e7c6b; /* Màu nút thêm thể loại */
+        }
+
+        .btn-update {
+            background-color: #9e7c6b; /* Màu nút cập nhật */
+        }
+
+        .btn-delete {
+            background-color: #b85450; /* Màu nút xóa */
+        }
+
+        .table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+        
+        .table th, .table td {
+            border: 1px solid #c9b8ae; /* Màu đường viền bảng */
+            padding: 8px;
+            text-align: left;
+        }
+
+        .table th {
+            background-color: #f2f2f2;
+        }
+        
+        .back-button {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            background-color: #c9b8ae; /* Màu nút quay lại */
+            color: #6d584f; /* Màu chữ nút quay lại */
+            text-align: center;
+            text-decoration: none;
+            border-radius: 5px;
+            margin-bottom: 20px;
+        }
+        
+        .table tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+
+        /* Falling snow animation */
+        .snowflake {
+            position: fixed;
+            top: -50px;
+            z-index: 9999;
+            opacity: 0.8;
+            background-color: #fff;
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            user-select: none;
+            pointer-events: none;
+        }
+
+        @keyframes fall {
+            0% { top: -50px; }
+            100% { top: 100vh; }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container mt-5">
+        <a href="/index1" class="back-button">Quay lại Trang Chủ</a>
+        <h2>Categories</h2>
+        <h3><button class="btn btn-update" onclick="window.location.href='/products/list'">Danh sách sản phẩm</button></h3>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>STT</th>
+                    <th>Tên Thể Loại</th>
+                    <th>Chức Năng</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% categories.forEach(function(category, index) { %>
+                    <tr>
+                        <td><%= index + 1 %></td>
+                        <td><%= category.name %></td>
+                        <td>
+                            <!-- Thêm đường dẫn cho button Update -->
+                            <a href="/categories/update/<%= category._id %>" >
+                                <button class="btn btn-update" type="button">Cập nhật</button>
+                            </a>
+            
+                            <!-- Thêm đường dẫn cho button Delete -->
+                            <a href="/categories/delete/<%= category._id %>" >
+                                <button class="btn btn-delete" type="button">Xóa</button>
+                            </a>
+                        </td>
+                    </tr>
+                <% }); %>
+            </tbody>
+        </table>
+        <button class="btn btn-success" onclick="window.location.href='/categories/add'">Thêm Thể Loại</button>
+    </div>
+</body>
+
+<script>
+    // Function to generate a random number
+    function random(min, max) {
+        return Math.floor(Math.random() * (max - min + 1) + min);
+    }
+
+    // Function to create snowflakes
+    function createSnowflake() {
+        const snowflake = document.createElement('i');
+        snowflake.classList.add('bx');
+        snowflake.classList.add('bxs-snowflake');
+        snowflake.classList.add('snowflake');
+        document.body.appendChild(snowflake);
+
+        // Random size from 10px to 30px
+        snowflake.style.fontSize = random(10, 30) + 'px';
+
+        // Random position on the screen
+        snowflake.style.left = random(0, 100) + 'vw';
+
+        // Random animation duration to make some snowflakes fall faster and others slower
+        snowflake.style.animationDuration = random(5, 12) + 's';
+
+        // Random delay so they don't all appear at once
+        snowflake.style.animationDelay = random(-1, -10) + 's';
+
+        // Start the falling animation
+        snowflake.style.animationName = 'fall';
+        snowflake.style.animationTimingFunction = 'linear';
+        snowflake.style.animationIterationCount = 'infinite';
+
+        // Remove snowflake after it falls out of view
+        setTimeout(() => {
+            snowflake.remove();
+        }, 5000);
+    }
+
+    // Create a new snowflake every 50 milliseconds
+    setInterval(createSnowflake, 50);
+</script>
+
+</html>

@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Danh Sách Người Dùng</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f7ede2; /* Màu nền ấm */
+        }
+
+        .container {
+            margin: 50px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h2 {
+            margin-top: 0;
+            color: #6d584f; /* Màu chữ tiêu đề */
+            text-align: center;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th,
+        td {
+            padding: 10px;
+            border: 1px solid #c9b8ae; /* Màu đường viền bảng */
+            text-align: left;
+        }
+
+        th {
+            background-color: #9e7c6b; /* Màu nền tiêu đề cột */
+            color: #fff;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+
+        tr:hover {
+            background-color: #ddd;
+        }
+
+        p {
+            font-style: italic;
+            color: #888;
+            text-align: center;
+        }
+
+        .back-button {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            background-color: #c9b8ae; /* Màu nút quay lại */
+            color: #6d584f; /* Màu chữ nút quay lại */
+            text-align: center;
+            text-decoration: none;
+            border-radius: 5px;
+            margin-bottom: 20px;
+        }
+
+        /* CSS cho hiệu ứng tuyết rơi */
+        .snowflake {
+            position: fixed;
+            top: -50px;
+            z-index: 9999;
+            opacity: 0.8;
+            background-color: #fff; /* Màu của tuyết rơi */
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            user-select: none;
+            pointer-events: none;
+        }
+
+        @keyframes fall {
+            0% { top: -50px; }
+            100% { top: 100vh; }
+        }
+
+        /* Animation settings */
+        .snowflake {
+            animation: fall linear infinite;
+            animation-duration: 5s; /* Thời gian tuyết rơi */
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Tuyết rơi -->
+    <div class="snowflake"></div>
+
+    <div class="container mt-5">
+        <a href="/index1" class="back-button">Quay lại Trang Chủ</a>
+
+        <h2>Danh Sách Người Dùng</h2>
+        <% if (data && data.length > 0) { %>
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Tên Người Dùng</th>
+                    <th>Mật Khẩu</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% data.forEach(function(user) { %>
+                <tr>
+                    <td><%= user._id %></td>
+                    <td><%= user.userName %></td>
+                    <!-- Hiển thị mật khẩu trực tiếp (Lưu ý: đây chỉ là mục đích thử nghiệm, trong ứng dụng thực tế bạn không nên hiển thị mật khẩu trực tiếp) -->
+                    <td><%= user.password %></td>
+                </tr>
+                <% }); %>
+            </tbody>
+        </table>
+        <% } else { %>
+        <p>Không có người dùng nào.</p>
+        <% } %>
+    </div>
+
+    <!-- Script để tạo hiệu ứng tuyết rơi -->
+    <script>
+        function createSnowflake() {
+            const snowflake = document.createElement('div');
+            snowflake.classList.add('snowflake');
+            snowflake.style.left = Math.random() * window.innerWidth + 'px';
+            snowflake.style.animationDuration = Math.random() * 3 + 2 + 's';
+            snowflake.style.opacity = Math.random();
+            document.body.appendChild(snowflake);
+
+            setTimeout(() => {
+                snowflake.remove();
+            }, 5000);
+        }
+
+        setInterval(createSnowflake, 100);
+    </script>
+</body>
+
+</html>

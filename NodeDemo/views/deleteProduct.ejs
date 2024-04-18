@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Delete Product</title>
+    <style>
+        /* CSS styles */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f7ede2; /* Màu nền ấm */
+            text-align: center;
+            overflow: hidden; /* Ngăn chặn thanh cuộn ngang */
+        }
+
+        .container {
+            max-width: 500px;
+            margin: 0 auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        h2 {
+            color: #6d584f; /* Màu tiêu đề */
+            margin-bottom: 20px;
+        }
+
+        p {
+            margin-bottom: 20px;
+            color: #6d584f; /* Màu văn bản */
+        }
+
+        .btn {
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-right: 10px;
+        }
+
+        .btn-danger {
+            background-color: #b85450; /* Màu nút Xóa */
+            color: #fff;
+            border: none;
+        }
+        .back-button {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            background-color: #c9b8ae; /* Màu nút quay lại */
+            color: #6d584f; /* Màu chữ nút quay lại */
+            text-align: center;
+            text-decoration: none;
+            border-radius: 5px;
+            margin-bottom: 20px;
+        }
+        .btn-secondary {
+            background-color: #9e7c6b; /* Màu nút Hủy */
+            color: #fff;
+            border: none;
+        }
+
+        /* Hiệu ứng tuyết rơi */
+        .snowflake {
+            position: absolute;
+            width: 5px;
+            height: 5px;
+            background-color: #fff;
+            border-radius: 50%;
+            animation: snowfall linear infinite;
+            pointer-events: none;
+        }
+
+        @keyframes snowfall {
+            0% {
+                transform: translateY(-100%);
+            }
+            100% {
+                transform: translateY(100vh);
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container mt-5">
+        <a href="/index1" class="back-button">Quay lại Trang Chủ</a>
+        <h2>Delete Product</h2>
+        <p>Are you sure you want to delete the product <%= product.name %>?</p>
+        <form action="/products/delete/<%= product._id %>" method="post">
+            <button type="submit" class="btn btn-danger">Yes, Delete</button>
+            <a href="/products/list" class="btn btn-secondary">Cancel</a>
+        </form>
+    </div>
+
+    <!-- Tạo hiệu ứng tuyết rơi -->
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const body = document.querySelector('body');
+            const numFlakes = 30; // Số lượng tuyết rơi
+
+            for (let i = 0; i < numFlakes; i++) {
+                createSnowflake(body);
+            }
+        });
+
+        // Tạo một tuyết rơi
+        function createSnowflake(body) {
+            const snowflake = document.createElement('div');
+            snowflake.classList.add('snowflake');
+            snowflake.style.left = Math.random() * 100 + 'vw';
+            snowflake.style.animationDuration = Math.random() * 3 + 2 + 's'; // Khoảng thời gian rơi từ 2 đến 5 giây
+            snowflake.style.animationDelay = Math.random() + 's'; // Độ trễ khởi đầu từ 0 đến 1 giây
+            body.appendChild(snowflake);
+
+            snowflake.addEventListener('animationend', function () {
+                snowflake.remove(); // Loại bỏ tuyết rơi sau khi kết thúc animation
+                createSnowflake(body); // Tạo một tuyết rơi mới
+            });
+        }
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,63 @@
+<!-- views/deleteCategory.ejs -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Delete Category</title>
+  <style>
+    /* CSS styles */
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f4;
+      text-align: center;
+    }
+    
+
+    h1 {
+      color: #333;
+    }
+
+    p {
+      margin-bottom: 20px;
+    }
+
+    button {
+      padding: 10px 20px;
+      background-color: #dc3545;
+      color: #fff;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      margin-right: 10px;
+    }
+    .back-button {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            background-color: #ccc;
+            color: #333;
+            text-align: center;
+            text-decoration: none;
+            border-radius: 5px;
+            margin-bottom: 20px;
+        }
+    a {
+      padding: 10px 20px;
+      background-color: #007bff;
+      color: #fff;
+      text-decoration: none;
+      border-radius: 5px;
+    }
+  </style>
+</head>
+<body>
+  <a href="/index1" class="back-button">Quay lại Trang Chủ</a>
+  <h1>Delete Category</h1>
+  <p>Are you sure you want to delete category "<%= category.name %>"?</p>
+  <form action="/categories/delete/<%= category._id %>" method="POST">
+    <button type="submit">Yes, Delete</button>
+    <a href="/categories/list">No, Cancel</a>
+  </form>
+</body>
+</html>

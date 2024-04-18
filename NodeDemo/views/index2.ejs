@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="/stylesheets/styleIndex2.css" rel="stylesheet">
+    
+</head>
+<body>
+    
+    <button onclick="toggleModal()" type="button" >Click vào đây để đăng nhập</button>
+
+    <div class="modal-background" onclick="toggleModal()"></div>
+
+    <div class="modal">
+        
+        <button type="button" onclick="window.location.href='/login'">LOGIN</button>
+    </div>
+
+    <script>
+        const toggleModal = () =>{
+            const bodyClassList = document.body.classList;
+            if(bodyClassList.contains("open")){
+                bodyClassList.remove("open");
+                bodyClassList.add("closed");
+            }else{
+                bodyClassList.remove("closed");
+                bodyClassList.add("open");
+            }
+        }
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thêm Danh Mục</title>
+    <style>
+        /* CSS styles */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f7ede2; /* Màu nền ấm */
+            overflow: hidden; /* Ngăn chặn thanh cuộn ngang */
+        }
+        
+        .container {
+            max-width: 500px;
+            margin: 0 auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            position: relative; /* Thiết lập vị trí tương đối */
+        }
+        
+        h2 {
+            color: #6d584f; /* Màu chữ tiêu đề */
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        
+        .form-label {
+            font-weight: bold;
+            color: #6d584f; /* Màu chữ nhãn form */
+        }
+        
+        .form-control {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 20px;
+            border: 1px solid #c9b8ae; /* Màu đường viền form */
+            border-radius: 5px;
+            box-sizing: border-box;
+            background-color: #faf3eb; /* Màu nền form */
+        }
+        
+        .btn-primary {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            background-color: #9e7c6b; /* Màu nút */
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+        
+        .btn-primary:hover {
+            background-color: #745a4d; /* Màu nút hover */
+            transform: scale(1.1);
+        }
+
+        /* Styles for the back button */
+        .back-button {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            background-color: #c9b8ae; /* Màu nút quay lại */
+            color: #6d584f; /* Màu chữ nút quay lại */
+            text-align: center;
+            text-decoration: none;
+            border-radius: 5px;
+            margin-bottom: 20px;
+        }
+
+        .back-button:hover {
+            background-color: #a89a91; /* Màu nút quay lại hover */
+        }
+
+        /* Tuyết rơi */
+        .snowflake {
+            position: absolute; /* Thiết lập vị trí tuyệt đối */
+            width: 5px;
+            height: 5px;
+            background-color: #fff;
+            border-radius: 50%;
+            animation: snowfall linear infinite;
+            pointer-events: none;
+        }
+
+        /* Hiệu ứng tuyết rơi */
+        @keyframes snowfall {
+            0% {
+                transform: translateY(-100%);
+            }
+            100% {
+                transform: translateY(100vh);
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container mt-5">
+        <a href="/index1" class="back-button">Quay lại Trang Chủ</a>
+        <h2>Thêm Danh Mục</h2>
+        <form action="/categories/add" method="post">
+            <div class="mb-3">
+                <label for="categoryName" class="form-label">Tên Danh Mục</label>
+                <input type="text" class="form-control" id="categoryName" name="name" required>
+            </div>
+            <button type="submit" class="btn btn-primary">Thêm Danh Mục</button>
+        </form>
+    </div>
+
+    <!-- Tạo hiệu ứng tuyết rơi -->
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const container = document.querySelector('.container');
+            const numFlakes = 30; // Số lượng tuyết rơi
+
+            for (let i = 0; i < numFlakes; i++) {
+                createSnowflake(container);
+            }
+        });
+
+        // Tạo một tuyết rơi
+        function createSnowflake(container) {
+            const snowflake = document.createElement('div');
+            snowflake.classList.add('snowflake');
+            snowflake.style.left = Math.random() * 100 + 'vw';
+            snowflake.style.animationDuration = Math.random() * 3 + 2 + 's'; // Khoảng thời gian rơi từ 2 đến 5 giây
+            snowflake.style.animationDelay = Math.random() + 's'; // Độ trễ khởi đầu từ 0 đến 1 giây
+            container.appendChild(snowflake);
+
+            snowflake.addEventListener('animationend', function () {
+                snowflake.remove(); // Loại bỏ tuyết rơi sau khi kết thúc animation
+                createSnowflake(container); // Tạo một tuyết rơi mới
+            });
+        }
+    </script>
+</body>
+
+</html>

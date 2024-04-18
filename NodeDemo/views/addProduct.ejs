@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thêm Sản Phẩm</title>
+    <style>
+        /* CSS styles */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f7ede2; /* Màu nền ấm */
+        }
+        
+        .container {
+            max-width: 500px;
+            margin: 0 auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+        
+        h2 {
+            color: #6d584f; /* Màu chữ tiêu đề */
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        
+        label {
+            font-weight: bold;
+            color: #6d584f; /* Màu chữ nhãn form */
+        }
+        
+        .form-control {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #c9b8ae; /* Màu đường viền form */
+            border-radius: 5px;
+            box-sizing: border-box;
+            background-color: #faf3eb; /* Màu nền form */
+        }
+        
+        textarea.form-control {
+            resize: vertical;
+        }
+        
+        select.form-control {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #c9b8ae; /* Màu đường viền form */
+            border-radius: 5px;
+            box-sizing: border-box;
+            appearance: none;
+            background-color: #faf3eb; /* Màu nền form */
+        }
+
+        .back-button {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            background-color: #c9b8ae; /* Màu nút quay lại */
+            color: #6d584f; /* Màu chữ nút quay lại */
+            text-align: center;
+            text-decoration: none;
+            border-radius: 5px;
+            margin-bottom: 20px;
+        }
+        
+        .btn-primary {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            background-color: #9e7c6b; /* Màu nút */
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .btn-primary:hover {
+            background-color: #745a4d; /* Màu nút hover */
+        }
+
+        /* Falling snow animation */
+        .snowflake {
+            position: fixed;
+            top: -50px;
+            z-index: 9999;
+            opacity: 0.8;
+            background-color: #fff;
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            user-select: none;
+            pointer-events: none;
+        }
+
+        @keyframes fall {
+            0% { top: -50px; }
+            100% { top: 100vh; }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container mt-5">
+        <a href="/index1" class="back-button">Quay lại Trang Chủ</a>
+        <h2>Thêm Sản Phẩm</h2>
+        <form action="/products/add" method="post">
+            <div class="form-group">
+                <label for="name">Tên Sản Phẩm:</label>
+                <input type="text" class="form-control" id="name" name="name" required>
+            </div>
+            <div class="form-group">
+                <label for="description">Mô Tả:</label>
+                <textarea class="form-control" id="description" name="description" rows="3" required></textarea>
+            </div>
+            <div class="form-group">
+                <label for="price">Giá:</label>
+                <input type="number" class="form-control" id="price" name="price" required>
+            </div>
+
+            <div class="form-group">
+                <label for="category">Danh Mục:</label>
+                <select name="category" id="category" class="form-control">
+                    <% categories.forEach(function(category) { %>
+                        <option value="<%= category._id %>"><%= category.name %></option>
+                    <% }); %>
+                </select>
+            </div>
+            <!-- Nút submit -->
+            <button type="submit" class="btn btn-primary">Thêm</button>
+        </form>
+    </div>
+</body>
+
+<script>
+    // Function to generate a random number
+    function random(min, max) {
+        return Math.floor(Math.random() * (max - min + 1) + min);
+    }
+
+    // Function to create snowflakes
+    function createSnowflake() {
+        const snowflake = document.createElement('i');
+        snowflake.classList.add('bx');
+        snowflake.classList.add('bxs-snowflake');
+        snowflake.classList.add('snowflake');
+        document.body.appendChild(snowflake);
+
+        // Random size from 10px to 30px
+        snowflake.style.fontSize = random(10, 30) + 'px';
+
+        // Random position on the screen
+        snowflake.style.left = random(0, 100) + 'vw';
+
+        // Random animation duration to make some snowflakes fall faster and others slower
+        snowflake.style.animationDuration = random(5, 12) + 's';
+
+        // Random delay so they don't all appear at once
+        snowflake.style.animationDelay = random(-1, -10) + 's';
+
+        // Start the falling animation
+        snowflake.style.animationName = 'fall';
+        snowflake.style.animationTimingFunction = 'linear';
+        snowflake.style.animationIterationCount = 'infinite';
+
+        // Remove snowflake after it falls out of view
+        setTimeout(() => {
+            snowflake.remove();
+        }, 5000);
+    }
+
+    // Create a new snowflake every 50 milliseconds
+    setInterval(createSnowflake, 50);
+</script>
+
+</html>

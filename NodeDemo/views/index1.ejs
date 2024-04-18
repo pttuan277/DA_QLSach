@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <link href="/stylesheets/styleIndex1.css" rel="stylesheet">
+    <style>
+        body {
+            background-image: url('https://png.pngtree.com/background/20211215/original/pngtree-the-background-photography-of-the-empty-library-bookstore-indoors-picture-image_1474812.jpg'); /* Đường dẫn đến ảnh nền */
+            background-size: cover;
+            background-repeat: no-repeat;
+        }
+        .snowflake {
+    position: fixed;
+    top: -50px;
+    z-index: 9999;
+    opacity: 0.8;
+    background-color: #FFF;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    user-select: none;
+    pointer-events: none;
+}
+
+@keyframes fall {
+    0% { top: -50px; }
+    100% { top: 100vh; }
+}
+
+    </style>
+
+    
+</head>
+<body>
+    <nav class="sidebar">
+        <div class="sidebar-inner">
+            <header class="sidebar-header">
+                <button type="button" class="sidebar-burger" onclick="toggleSidebar()">
+                    <i class='bx bx-menu'></i>
+                </button>
+                <div style="display: flex; justify-content: center; align-items: center; width: 50%; height: 100vh;">
+                    <i class='bx bx-book-open' style="font-size: 60px; color: white;"></i>
+                </div>
+            </header>
+
+            <nav class="sidebar-menu">
+                <button type="button">
+                    <i class='bx bx-home' ></i>
+                    <span>Trang chủ</span>
+                </button>
+                
+                 <button type="button" onclick="window.location.href='/categories/add'">
+                    <i class='bx bx-plus-circle' ></i>
+                    <span>Tạo thể loại</span>
+                </button>
+
+                <button type="button"  onclick="window.location.href='/products/add'">
+                    <i class='bx bx-plus-circle' ></i>
+                    <span>Tạo sản phẩm</span>
+                </button>
+                
+                <button type="button" class="has-border" onclick="window.location.href='#'">
+                    <i class='bx bx-plus-circle' ></i>
+                    <span>Thêm tác giả</span>
+                </button> 
+
+
+                <button type="button" onclick="window.location.href='/categories/list'">
+                    <i class='bx bx-objects-horizontal-left' style='color:#ffffff'  ></i>
+                    <span>Danh sách thể loại</span>
+                </button>
+                <button type="button" onclick="window.location.href='/products/list'">
+                    <i class='bx bx-objects-horizontal-left' style='color:#ffffff'  ></i>
+                    <span>Danh sách sản phẩm</span>
+                </button>
+                <button type="button" onclick="window.location.href='/authors/list'">
+                    <i class='bx bx-objects-horizontal-left' style='color:#ffffff'  ></i>
+                    <span>Danh sách tác giả</span>
+                </button>
+                <button type="button" class="has-border" onclick="window.location.href='/users/list'">
+                    <i class='bx bx-objects-horizontal-left' style='color:#ffffff'  ></i>
+                    <span>Danh sách người dùng</span>
+                </button>
+                <button type="button" onclick="window.location.href='/register'">
+                    <i class='bx bx-folder' ></i>
+                    <span>Đăng ký</span>
+                </button>
+                <button type="button"  onclick="window.location.href='/'">
+                    <i class='bx bx-log-out' style='color:#ffffff'></i>
+                    <span>Thoát</span>
+                </button>
+            </nav>
+        </div>
+    </nav>
+
+    <div class="main--content">
+        <div class="header--wrapper">
+            <div class="header--title">
+                <span> Primary</span>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const toggleSidebar = () => document.body.classList.toggle("open");
+        // Function to generate a random number
+        function random(min, max) {
+            return Math.floor(Math.random() * (max - min + 1) + min);
+        }
+
+        // Function to create snowflakes
+        function createSnowflake() {
+            const snowflake = document.createElement('i');
+            snowflake.classList.add('bx');
+            snowflake.classList.add('bxs-snowflake');
+            snowflake.classList.add('snowflake');
+            document.body.appendChild(snowflake);
+
+            // Random size from 10px to 30px
+            snowflake.style.fontSize = random(10, 30) + 'px';
+
+            // Random position on the screen
+            snowflake.style.left = random(0, 100) + 'vw';
+
+            // Random animation duration to make some snowflakes fall faster and others slower
+            snowflake.style.animationDuration = random(5, 12) + 's';
+
+            // Random delay so they don't all appear at once
+            snowflake.style.animationDelay = random(-1, -10) + 's';
+
+            // Start the falling animation
+            snowflake.style.animationName = 'fall';
+            snowflake.style.animationTimingFunction = 'linear';
+            snowflake.style.animationIterationCount = 'infinite';
+
+            // Remove snowflake after it falls out of view
+            setTimeout(() => {
+                snowflake.remove();
+            }, 5000);
+        }
+
+        // Create a new snowflake every 50 milliseconds
+        setInterval(createSnowflake, 50);
+    </script>
+</body>
+</html>

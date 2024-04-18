@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Đăng ký</title>
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <link href="/stylesheets/styleRegister.css" rel="stylesheet">
+</head>
+<body>
+
+    <div class="circle"></div>
+    <div class="card">
+        <i class='bx bx-book-open'  style="font-size: 60px ; color: blue;"></i></i>
+        <h2>Tạo tài khoản</h2>
+        <form class="form" action="/authen/register" method="post">
+           
+            <input type="text" placeholder="Tên" id="userName" name="userName" required>
+            <input type="email" placeholder="Email" id="email" name="email" required>
+            <input type="password" placeholder="Mật khẩu" id="password" name="password" required>
+            
+            
+            <select  id="role" name="role">
+                <% options.roles.forEach(function(role) { %>
+                    <option value="<%= role %>"><%= role.charAt(0).toUpperCase() + role.slice(1) %></option>
+                <% }); %>
+            </select>
+            <button type="submit">ĐĂNG KÝ</button>
+           
+        </form>
+        <footer>
+            Người dùng đã tồn tại, đăng nhập
+            <a href="/login">Tại đây</a>
+        </footer>
+    </div>
+
+</body>
+</html>

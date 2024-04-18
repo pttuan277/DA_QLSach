@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sản Phẩm</title>
+    <link href="/stylesheets/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f7ede2; /* Màu nền ấm */
+            overflow: hidden; /* Ngăn cuộn trang */
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        h2 {
+            color: #6d584f; /* Màu chữ tiêu đề */
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .btn-success {
+            background-color: #9e7c6b; /* Màu nút thêm sản phẩm */
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            padding: 10px 20px;
+            cursor: pointer;
+            margin-bottom: 20px;
+            display: inline-block;
+        }
+
+        .btn-success:hover {
+            background-color: #745a4d; /* Màu nút thêm sản phẩm khi hover */
+        }
+
+        .btn-update {
+            background-color: #9e7c6b; /* Màu nút cập nhật */
+            color: white;
+            border: none;
+            border-radius: 5px;
+            padding: 10px 20px;
+            cursor: pointer;
+        }
+
+        .btn-update:hover {
+            background-color: #e0a800; /* Màu nút cập nhật khi hover */
+        }
+
+        .btn-delete {
+            background-color: #b85450; /* Màu nút xóa */
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            padding: 10px 20px;
+            cursor: pointer;
+        }
+
+        .btn-delete:hover {
+            background-color: #c82333; /* Màu nút xóa khi hover */
+        }
+
+        .table th,
+        .table td {
+            border: 1px solid #c9b8ae; /* Màu đường viền bảng */
+            padding: 8px;
+        }
+        .back-button {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            background-color: #c9b8ae; /* Màu nút quay lại */
+            color: #6d584f; /* Màu chữ nút quay lại */
+            text-align: center;
+            text-decoration: none;
+            border-radius: 5px;
+            margin-bottom: 20px;
+        }
+
+        /* CSS for snowflakes */
+        .snowflake {
+            position: fixed;
+            top: -50px;
+            z-index: 9999;
+            opacity: 0.8;
+            background-color: #fff;
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            user-select: none;
+            pointer-events: none;
+        }
+
+        @keyframes fall {
+            0% { top: -50px; }
+            100% { top: 100vh; }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container mt-5">
+        <a href="/index1" class="back-button">Quay lại Trang Chủ</a>
+        <h2>Sản Phẩm</h2>
+        <h3><button class="btn btn-update" onclick="window.location.href='/categories/list'">Danh Mục</button></h3>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th class="col-1">STT</th>
+                    <th class="col-2">Tên</th>
+                    <th class="col-4">Mô Tả</th>
+                    <th class="col-1">Giá</th>
+                    <th class="col-2">Danh Mục</th>
+                    <th class="col-2">Tác giả</th>
+                    <th class="col-2">Chức Năng</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% products.forEach(function(product, index) { %>
+                    <tr>
+                        <td><%= index + 1 %></td>
+                        <td><%= product.name %></td>
+                        <td><%= product.description %></td>
+                        <td><%= product.price %></td>
+                        <td><%= product.category ? product.category.name : 'Không' %></td>
+                        <td><%= product.category ? product.category.author : 'Không' %></td>
+                        <td>
+                            <a href="/products/update/<%= product._id %>">
+                                <button class="btn btn-update" type="button">Cập Nhật</button>
+                            </a>
+                            <a href="/products/delete/<%= product._id %>">
+                                <button class="btn btn-delete" type="button">Xóa</button>
+                            </a>
+                        </td>
+                    </tr>
+                <% }); %>
+            </tbody>
+        </table>
+        <button class="btn btn-success" onclick="window.location.href='/products/add'">Thêm Sản Phẩm</button>
+    </div>
+
+    <!-- JavaScript for snowflakes -->
+    <script>
+        // Function to generate a random number
+        function random(min, max) {
+            return Math.floor(Math.random() * (max - min + 1) + min);
+        }
+
+        // Function to create snowflakes
+        function createSnowflake() {
+            const snowflake = document.createElement('i');
+            snowflake.classList.add('snowflake');
+            document.body.appendChild(snowflake);
+
+            // Random size from 10px to 30px
+            snowflake.style.fontSize = random(10, 30) + 'px';
+
+            // Random position on the screen
+            snowflake.style.left = random(0, 100) + 'vw';
+
+            // Random animation duration to make some snowflakes fall faster and others slower
+            snowflake.style.animationDuration = random(5, 12) + 's';
+
+            // Random delay so they don't all appear at once
+            snowflake.style.animationDelay = random(-1, -10) + 's';
+
+            // Start the falling animation
+            snowflake.style.animationName = 'fall';
+            snowflake.style.animationTimingFunction = 'linear';
+            snowflake.style.animationIterationCount = 'infinite';
+
+            // Remove snowflake after it falls out of view
+            setTimeout(() => {
+                snowflake.remove();
+            }, 5000);
+        }
+
+        // Create a new snowflake every 50 milliseconds
+        setInterval(createSnowflake, 50);
+    </script>
+</body>
+
+</html>
